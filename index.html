@@ -67,7 +67,7 @@
 
 	 var vozes = [[]], stave1 = [], stave2 = [], connector = [], ac, qtdCompassos = 3, chance = 0,
          contaT = 0, questao = 0, relatorio = [], mov = [], confirma = true, result, relato, tempoT = [],
-         tempo1, tempo2, bloqueia = false, qtdQ = 10, d, soaudio = false, limT, nivA1, nivA2, nivP1, nivP2, reg, ipe;
+         tempo1, tempo2, bloqueia = false, qtdQ = 10, d, soaudio = false, limT, nivA1, nivA2, nivP1, nivP2, reg;
 
  	 const { Stave, StaveConnector, StaveNote, Renderer, Voice, Formatter } = Vex.Flow;
 
@@ -120,8 +120,6 @@
           //console.log(nome);
         } else { alert("Você precisa digitar um nome!") };
     };
-
-    getIp(function (ip) { ipe = ip; });
 
     reseta();
 
@@ -304,37 +302,6 @@ function regressiva() {
       carregaNivel(document.getElementById('nivel').value);
       proximo(); };
   };
-};
-
-function getIp(callback)  {
-  function response(s)  {
-      callback(window.userip);
-
-      s.onload = s.onerror = null;
-      document.body.removeChild(s);
-  }
-
-  function trigger() {
-      window.userip = false;
-
-      var s = document.createElement("script");
-      s.async = true;
-      s.onload = function() {
-          response(s);
-      };
-      s.onerror = function() {
-          response(s);
-      };
-
-      s.src = "https://l2.io/ip.js?var=userip";
-      document.body.appendChild(s);
-  }
-
-  if (/^(interactive|complete)$/i.test(document.readyState)) {
-      trigger();
-  } else {
-      document.addEventListener('DOMContentLoaded', trigger);
-  }
 };
 
 function reseta() {
@@ -681,7 +648,7 @@ function salvaTudo() {
   relato+=tempMd + ";" // tempo médio das tentativas
   relato+=tMd + ";"; // média das notas das tentativas
   relato+=tentaM + "," + notaM + ";"; // 'tentativa com a nota mais alta' 'nota mais alta'
-  relato+=ipe + ";";
+  relato+=";"; // campo do IP: removido (mantido vazio para compatibilidade com a ferramenta de leitura)
   // relato+="|" // separador final
   // result+="Qtd de tentativas: "+contaT+"\n";
   result+="Tempo médio: " + tempMd + "s\n";
